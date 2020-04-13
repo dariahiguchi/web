@@ -97,7 +97,7 @@ const SCORES = {
     {min: 2000, max: 4000, score: 1},
     {min: 4000, max: 6000, score: 0},
     {min: 6000, max: 8000, score: -0.3},
-    {min: 8000, max: 999999, score: 0.5},
+    {min: 8000, max: 999999, score: -0.5},
   ],
 };
 const finalScore = [
@@ -263,7 +263,6 @@ const stepsChart = generateChart(STEPS);
 sleepBlockElement.addEventListener(`input`, () => {
   updateChart(sleepChart, sleepInputElements);
 });
-
 
 stepsBlockElement.addEventListener(`input`, () => {
   updateChart(stepsChart, stepsInputElements);
