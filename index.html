@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
-html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+html,body,h1,h2,h3,h4,h5,p {font-family: "Raleway", sans-serif}
 </style>
 <head>
   <!-- Place your kit's code here -->
@@ -63,7 +63,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   <div class="w3-bar w3-border w3-green">
     <div class="w3-bar-item"><h5>PHR</h5></div>
   </div>
-<form name="patientdata">
+<form name="patientdata" id="score-form">
   <!-- phr patients data--> 
   <div class="w3-row-padding" style="margin:0 -5px; padding: 20px;">
     <div class="w3-quarter">
@@ -74,21 +74,21 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
             <i class="fas fa-weight" aria-hidden="true"></i>
           </td>
           <td>WEIGHT</td>
-           <td><input type="text" name="weight" id="weight" size="5"></td>
+           <td><input type="number" name="weight" id="weight" size="5" min="0" max="999" required></td>
         </tr>
         <tr>
           <td>
             <i class="fas fa-weight" aria-hidden="true"></i>
           </td>
           <td>HEIGHT</td>
-           <td><input type="text" name="height" id="height" size="5"></td>
+           <td><input type="number" name="height" id="height" size="5" min="0" max="999" required></td>
         </tr>
         <tr>
           <td>
             <i class="fas fa-vial" aria-hidden="true"></i>
           </td>
-          <td>Ai</td>
-           <td><input type="text" name="ai" id="ai" size="5"></td>
+          <td>Sbp</td>
+           <td><input type="number" name="sbp" id="sbp" size="5" data-input="score" min="60" max="999" required></td>
         </tr>
      </tbody></table>
     </div>
@@ -98,15 +98,15 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
           <td>
             <i class="fas fa-vial" aria-hidden="true"></i>
           </td>
-          <td>dd</td>
-           <td><input type="text" name="dd" id="dd" size="5"></td>
+          <td>dBP</td>
+           <td><input type="number" name="dbp" id="dbp" size="5" data-input="score" min="30" max="999" required></td>
         </tr>
         <tr>
           <td>
             <i class="fas fa-vial" aria-hidden="true"></i>
           </td>
-          <td>abl</td>
-           <td><input type="text" name="abl" id="abl" size="5"></td>
+          <td>HbA1c</td>
+           <td><input type="number" name="hba1c" id="hba1c" size="5" data-input="score" min="3" max="999" step="0.1" required></td>
         </tr>
      </tbody>
     </table>
@@ -117,15 +117,15 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
           <td>
             <i class="fas fa-vial" aria-hidden="true"></i>
           </td>
-          <td>ToG</td>
-           <td><input type="text" name="tog" id="tog" size="5"></td>
+          <td>TG</td>
+           <td><input type="number" name="tg" id="tg" size="5" data-input="score" min="5" max="999" required></td>
         </tr>
         <tr>
           <td>
             <i class="fas fa-vial" aria-hidden="true"></i>
           </td>
-          <td>RBP</td>
-           <td><input type="text" name="rbp" id="rbp" size="5"></td>
+          <td>LDL</td>
+           <td><input type="number" name="ldl" id="ldl" size="5" data-input="score" min="20" max="999" required></td>
         </tr>
      </tbody>
     </table>
@@ -136,8 +136,8 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
           <td>
             <i class="fas fa-vial" aria-hidden="true"></i>
           </td>
-          <td>DUS</td>
-           <td><input type="text" name="dus" id="dus" size="5"></td>
+          <td>HDL</td>
+           <td><input type="number" name="hdl" id="hdl" size="5" data-input="score" min="10" max="999" required></td>
         </tr>
      </tbody>
     </table>
@@ -153,39 +153,39 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
       </div>
       <div class="w3-quarter">
         <h5>Sleep</h5>
-        <table class="w3-table w3-striped w3-white">
+        <table class="w3-table w3-striped w3-white" id="sleep-block">
           <tr>
             <td><i class="fas fa-moon" aria-hidden="true"></i></td>
-            <td>Day 1. <input type="text" name="sleep" id="slpday1" size="5"></td>
+            <td>Day 1. <input type="number" name="sleep" id="slpday1" size="5" min="0" max="999" required></td>
             <td><i>hours</i></td>
           </tr>
           <tr>
             <td><i class="far fa-moon"></i></td>
-            <td>Day 2. <input type="text" name="sleep" id="slpday2" size="5"></td>
+            <td>Day 2. <input type="number" name="sleep" id="slpday2" size="5" min="0" max="999" required></td>
             <td><i>hours</i></td>
           </tr>
           <tr>
             <td><i class="fas fa-moon" aria-hidden="true"></i></td>
-            <td>Day 3. <input type="text" name="sleep" id="slpday3" size="5"></td>
+            <td>Day 3. <input type="number" name="sleep" id="slpday3" size="5" min="0" max="999" required></td>
             <td><i>hours</i></td>
           </tr>
           <tr>
             <td><i class="far fa-moon" aria-hidden="true"></i></td>
-            <td>Day 4. <input type="text" name="sleep" id="slpday4" size="5"></td>
+            <td>Day 4. <input type="number" name="sleep" id="slpday4" size="5" min="0" max="999" required></td>
             <td><i>hours</i></td>
           </tr>  <tr>
             <td><i class="fas fa-moon" aria-hidden="true"></i></td>
-            <td>Day 5. <input type="text" name="sleep" id="slpday5" size="5"></td>
+            <td>Day 5. <input type="number" name="sleep" id="slpday5" size="5" min="0" max="999" required></td>
             <td><i>hours</i></td>
           </tr>
           <tr>
             <td><i class="fas fa-moon" aria-hidden="sleep"></i></td>
-            <td>Day 6. <input type="text" name="sleep" id="slpday6" size="5"></td>
+            <td>Day 6. <input type="number" name="sleep" id="slpday6" size="5" min="0" max="999" required></td>
             <td><i>hours</i></td>
           </tr>
           <tr>
             <td><i class="fas fa-moon" aria-hidden="true"></i></td>
-            <td>Day 7. <input type="text" name="sleep" id="splday7" size="5"></td>
+            <td>Day 7. <input type="number" name="sleep" id="splday7" size="5" min="0" max="999" required></td>
             <td><i>hours</i></td>
           </tr>
         </table>
@@ -196,39 +196,39 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
       </div>
       <div class="w3-quarter">
         <h5>Walk</h5>
-        <table class="w3-table w3-striped w3-white">
+        <table class="w3-table w3-striped w3-white" id="steps-block">
           <tbody><tr>
             <td><i class="fas fa-walking"></i></td>
-            <td>Day 1. <input onblur=" " type="text" name="steps" id="stpday1" size="5" ></td>
+            <td>Day 1. <input onblur=" " type="number" name="steps" id="stpday1" size="5" min="0" max="999999" required></td>
             <td><i>steps</i></td>
           </tr>
           <tr>
             <td><i class="fas fa-running" aria-hidden="true"></i></td>
-            <td>Day 2. <input  onblur=" "type="text" name="steps" id="stpday2" size="5"></td>
+            <td>Day 2. <input  onblur=" "type="number" name="steps" id="stpday2" size="5" min="0" max="999999" required></td>
             <td><i>steps</i></td>
           </tr>
           <tr>
             <td><i class="fas fa-walking" aria-hidden="true"></i></td>
-            <td>Day 3. <input  onblur=" "type="text" name="steps" id="stpday3" size="5"></td>
+            <td>Day 3. <input  onblur=" "type="number" name="steps" id="stpday3" size="5" min="0" max="999999" required></td>
             <td><i>steps</i></td>
           </tr>
           <tr>
             <td><i class="fas fa-running" aria-hidden="true"></i></td>
-            <td>Day 4. <input  onblur=" "type="text" name="steps" id="stpday4" size="5"></td>
+            <td>Day 4. <input  onblur=" "type="number" name="steps" id="stpday4" size="5" min="0" max="999999" required></td>
             <td><i>steps</i></td>
           </tr>  <tr>
             <td><i class="fas fa-walking" aria-hidden="true"></i></td>
-            <td>Day 5. <input  onblur=" "type="text" name="steps" id="stpday5" size="5"></td>
+            <td>Day 5. <input  onblur=" "type="number" name="steps" id="stpday5" size="5" min="0" max="999999" required></td>
             <td><i>steps</i></td>
           </tr>
           <tr>
             <td><i class="fas fa-running" aria-hidden="true"></i></td>
-            <td>Day 6. <input  onblur=" "type="text" name="steps" id="stpday6" size="5"></td>
+            <td>Day 6. <input  onblur=" "type="number" name="steps" id="stpday6" size="5" min="0" max="999999" required></td>
             <td><i>steps</i></td>
           </tr>
           <tr>
             <td><i class="fas fa-walking" aria-hidden="true"></i></td>
-            <td>Day 7. <input  onblur=" "type="text" name="steps" id="stpday7" size="5"></td>
+            <td>Day 7. <input  onblur=" "type="number" name="steps" id="stpday7" size="5" min="0" max="999999" required></td>
             <td><i>steps</i></td>
           </tr>
         </tbody>
@@ -238,21 +238,17 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   <div class="w3-bar w3-border w3-blue">
     <div class="w3-bar-item"><h5>SCORE</h5></div>
   </div>
-  <input type="reset" value="Reset" />
-  <input type="button" value="Calculate score" id="update" onClick="calculateScore()"><br />
+  <button type="reset">Reset</button>
+  <button type="submit">Submit</button>
 </form>
   <table>
     <tr>
-      <td><h3>Your score:</h3> </td>
-      <div name="score">
-        <img class="main-img__item main-img__item--small" src="img/default.png">
-      </div>
-      <div class="main-img">
-        <img class="main-img__item main-img__item--small" src="img/sun.png">
-        <img class="main-img__item main-img__item--small" src="img/sun-with-clouds.png">
-        <img class="main-img__item main-img__item--small" src="img/cloud.png">
-        <img class="main-img__item main-img__item--small" src="img/before-rain.png">
-        <img class="main-img__item main-img__item--small" src="img/raining4.png">
+      <td>
+        <h3 id="score-result"></h3><br>
+        <p id="score-result-description"></p>
+      </td>
+      <div>
+        <img id="score-result-img" src="img/default.png">
       </div>
     </tr>
   </table>
@@ -315,6 +311,7 @@ function w3_close() {
 }
 
 </script>
-<script src="script.js"></script>
+<!-- <script src="script.js"></script> -->
+<script src="index.js"></script>
 </body>
 </html>
