@@ -84,6 +84,7 @@ const SCORES = {
     {min: 36, max: 40, score: 0.5},
     {min: 40, max: 999, score: 0},
   ],
+<<<<<<< HEAD
   sleep: [
     {min: 0, max: 4, score: 2},
     {min: 4, max: 5, score: 1.5},
@@ -100,7 +101,25 @@ const SCORES = {
     {min: 6000, max: 8000, score: -0.3},
     {min: 8000, max: 999999, score: -0.5},
   ],
+=======
+>>>>>>> 244e5f7bf701a22fed9479e02e746d42e2ebbfdb
 };
+const sleepScores = [
+  {min: 0, max: 4, score: 2},
+  {min: 4, max: 5, score: 1.5},
+  {min: 5, max: 6, score: 1},
+  {min: 6, max: 7, score: 0.5},
+  {min: 7, max: 8, score: -0.5},
+  {min: 8, max: 999, score: -0.3},
+];
+const stepsScores = [
+  {min: 0, max: 1000, score: 2},
+  {min: 1000, max: 2000, score: 1.5},
+  {min: 2000, max: 4000, score: 1},
+  {min: 4000, max: 6000, score: 0},
+  {min: 6000, max: 8000, score: -0.3},
+  {min: 8000, max: 999999, score: -0.5},
+];
 const finalScore = [
   {min: -1, max: 0, score: `素晴らしい、予報は快晴です`, src: `img/SUN.png`, desc: DESCRIPTION_SCORES.SUNNY},
   {min: 0, max: 2.5, score: `ご安心下さい、予報は晴れ時々曇りです`, src: `img/SUN-WITH-CLOUD.png`, desc: DESCRIPTION_SCORES.FINE},
@@ -109,12 +128,11 @@ const finalScore = [
   {min: 8, max: 12.1, score: `大変です、予報は大雨です`, src: `img/RAINING.png`, desc: DESCRIPTION_SCORES.STORM},
 ]; // указал max: 12.1 что бы не дописывать логику на 12 включительно.
 
-const getAverage = (arr) => (arr.reduce((accumulator, elem) => (accumulator + parseInt(elem.value, 10)), 0) / arr.length);
 const generateFakeBmi = (arr) => {
   const weight = weightInputElement.value;
   const height = heightInputElement.value;
   const bmi = weight / (((height / 100) * height) / 100);
-
+  console.log(bmi);
   if (bmi < 10) {
     alert(DEFAULT_ERROR_BMI);
   }
@@ -124,17 +142,20 @@ const generateFakeBmi = (arr) => {
     value: bmi,
   });
 };
-const generateFakeSleep = (arr) => {
-  arr.push({
-    name: ScoresName.SLEEP,
-    value: getAverage(sleepInputElements),
+const getSSScore = (arr, scores) => {
+  let result = 0;
+
+  arr.forEach((inputElement) => {
+    const value = parseInt(inputElement.value, 10);
+    scores.forEach((score) => {
+      if (score.min <= value && value < score.max) {
+        result = result + score.score;
+      }
+    })
   });
-};
-const generateFakeSteps = (arr) => {
-  arr.push({
-    name: ScoresName.STEPS,
-    value: getAverage(stepsInputElements),
-  });
+
+  console.log(`Avarage ${arr[0].name} score!`, result / arr.length);
+  return result / arr.length;
 };
 const getScore = (scoreName, score) => {
   SCORES[scoreName].forEach((elem) => {
@@ -172,25 +193,16 @@ const checkScore = (scoreName, value) => {
     case ScoresName.HDL:
       getScore(ScoresName.HDL, value);
       break;
-
-    case ScoresName.SLEEP:
-      getScore(ScoresName.SLEEP, value);
-      break;
-
-    case ScoresName.STEPS:
-      getScore(ScoresName.STEPS, value);
-      break;
   }
 }
 
 formElement.addEventListener(`submit`, (evt) => {
   evt.preventDefault();
   totalScore = 0;
+  totalScore = totalScore + getSSScore(sleepInputElements, sleepScores) + getSSScore(stepsInputElements, stepsScores);
   allInputElements = [...phrInputElements];
 
   generateFakeBmi(allInputElements);
-  generateFakeSleep(allInputElements);
-  generateFakeSteps(allInputElements);
   allInputElements.forEach((elem) => checkScore(elem.name, elem.value));
 
   finalScore.forEach((elem) => {
@@ -201,6 +213,8 @@ formElement.addEventListener(`submit`, (evt) => {
       resultScoreImgElement.src = elem.src;
     }
   });
+
+  console.log(`totalScore`, totalScore);
 });
 
 formElement.addEventListener(`reset`, () => {
@@ -265,7 +279,6 @@ const stepsChart = generateChart(STEPS);
 sleepBlockElement.addEventListener(`input`, () => {
   updateChart(sleepChart, sleepInputElements);
 });
-
 
 stepsBlockElement.addEventListener(`input`, () => {
   updateChart(stepsChart, stepsInputElements);
