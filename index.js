@@ -19,6 +19,9 @@ const DESCRIPTION_SCORES = {
   STORM: `でも安心してください。今日からでも生活習慣を改善することで、将来、認知症になるリスクを下げることができます。`, // Описание оценки STORM
 };
 let totalScore = 0;
+let lipidPoints = 0;
+let sBPPoints = 0;
+let dBPoints = 0;
 let allInputElements = [];
 const ScoresName = {
   BMI: `bmi`,
@@ -132,7 +135,7 @@ const generateFakeBmi = (arr) => {
   const weight = weightInputElement.value;
   const height = heightInputElement.value;
   const bmi = weight / (((height / 100) * height) / 100);
-  console.log(bmi);
+
   if (bmi < 10) {
     alert(DEFAULT_ERROR_BMI);
   }
@@ -154,44 +157,48 @@ const getSSScore = (arr, scores) => {
     })
   });
 
-  console.log(`Avarage ${arr[0].name} score!`, result / arr.length);
   return result / arr.length;
 };
+const getBPPoints = () => ((sBPPoints * 2 + dBPoints) / 3);
 const getScore = (scoreName, score) => {
+  let result;
+
   SCORES[scoreName].forEach((elem) => {
     if (elem.min <= score && score < elem.max) {
-      totalScore = totalScore + elem.score;
+      result = elem.score;
     }
   });
+
+  return result;
 };
 const checkScore = (scoreName, value) => {
   switch (scoreName) {
     case ScoresName.BMI:
-      getScore(ScoresName.BMI, value);
+      totalScore = totalScore + getScore(ScoresName.BMI, value);
       break;
   
     case ScoresName.SBP:
-      getScore(ScoresName.SBP, value);
+      sBPPoints = getScore(ScoresName.SBP, value);
       break;
 
     case ScoresName.DBP:
-      getScore(ScoresName.DBP, value);
+      dBPoints = getScore(ScoresName.DBP, value);
       break;
 
     case ScoresName.HBA1C:
-      getScore(ScoresName.HBA1C, value);
+      totalScore = totalScore + getScore(ScoresName.HBA1C, value);;
       break;
 
     case ScoresName.TG:
-      getScore(ScoresName.TG, value);
+      lipidPoints = lipidPoints + getScore(ScoresName.TG, value);;
       break;
 
     case ScoresName.LDL:
-      getScore(ScoresName.LDL, value);
+      lipidPoints = lipidPoints + getScore(ScoresName.LDL, value);;
       break;
     
     case ScoresName.HDL:
-      getScore(ScoresName.HDL, value);
+      lipidPoints = lipidPoints + getScore(ScoresName.HDL, value);;
       break;
   }
 }
@@ -199,11 +206,12 @@ const checkScore = (scoreName, value) => {
 formElement.addEventListener(`submit`, (evt) => {
   evt.preventDefault();
   totalScore = 0;
-  totalScore = totalScore + getSSScore(sleepInputElements, sleepScores) + getSSScore(stepsInputElements, stepsScores);
   allInputElements = [...phrInputElements];
-
+  
   generateFakeBmi(allInputElements);
   allInputElements.forEach((elem) => checkScore(elem.name, elem.value));
+  
+  totalScore = totalScore + getSSScore(sleepInputElements, sleepScores) + getSSScore(stepsInputElements, stepsScores) + (lipidPoints / 3) + getBPPoints();
 
   finalScore.forEach((elem) => {
     if (elem.min <= totalScore && totalScore < elem.max) {
@@ -213,8 +221,6 @@ formElement.addEventListener(`submit`, (evt) => {
       resultScoreImgElement.src = elem.src;
     }
   });
-
-  console.log(`totalScore`, totalScore);
 });
 
 formElement.addEventListener(`reset`, () => {
