@@ -4,18 +4,19 @@ const weightInputElement = formElement.querySelector(`#weight`);
 const heightInputElement = formElement.querySelector(`#height`);
 const sleepInputElements = Array.from(formElement.querySelectorAll(`[name=sleep]`));
 const stepsInputElements = Array.from(formElement.querySelectorAll(`[name=steps]`));
+const resultScoreDefault = document.querySelector('#default-text')
 const resultScoreElement = document.querySelector(`#score-result`);
 const resultScoreDescriptionElement = document.querySelector(`#score-result-description`);
 const resultScoreImgElement = document.querySelector(`#score-result-img`);
 const DEFAULT_IMG = `img/default.png`; // Дефолтная картинка
-const DEFAULT_TEXT_SCORE = `Your score:`; // Описание текста перед оценкой
+const DEFAULT_TEXT_SCORE = `あなたの10年後の認知症リスク予報は`; // Описание текста перед оценкой
 const DEFAULT_ERROR_BMI = `Вы ввели не верные данные weight и height`; // Описание ошибки
 const DESCRIPTION_SCORES = {
-  A: `Описание оценки!`, // Описание оценки A
-  B: `Описание оценки!`, // Описание оценки B
-  C: `Описание оценки!`, // Описание оценки C
-  D: `Описание оценки!`, // Описание оценки D
-  E: `Описание оценки!`, // Описание оценки E
+  SUNNY: `認知症リスクは、生活習慣と密接に関連しています。是非、現在の生活習慣を心掛けて下さい。`, // Описание оценки SUNNY
+  FINE: `気を抜かず、生活習慣をより改善することで、将来の認知症リスクを更に下げることができます。`, // Описание оценки FINE
+  CLOUDY: `生活習慣を改善することで、認知症リスクは下げる事ができます。より良い生活習慣を心掛けて下さい。`, // Описание оценки CLOUDY
+  RAINY: `生活習慣を改善することで、認知症リスクは下げる事ができます。是非一度、ご自身の生活習慣を見つめなおしてみて下さい。`, // Описание оценки RAINY
+  STORM: `でも安心してください。今日からでも生活習慣を改善することで、将来、認知症になるリスクを下げることができます。`, // Описание оценки STORM
 };
 let totalScore = 0;
 let allInputElements = [];
@@ -97,15 +98,15 @@ const SCORES = {
     {min: 2000, max: 4000, score: 1},
     {min: 4000, max: 6000, score: 0},
     {min: 6000, max: 8000, score: -0.3},
-    {min: 8000, max: 999999, score: 0.5},
+    {min: 8000, max: 999999, score: -0.5},
   ],
 };
 const finalScore = [
-  {min: -1, max: 0, score: `A`, src: `img/sun.png`, desc: DESCRIPTION_SCORES.A},
-  {min: 0, max: 2.5, score: `B`, src: `img/sun-with-clouds.png`, desc: DESCRIPTION_SCORES.B},
-  {min: 2.5, max: 6, score: `C`, src: `img/cloud.png`, desc: DESCRIPTION_SCORES.C},
-  {min: 6, max: 8, score: `D`, src: `img/before-rain.png`, desc: DESCRIPTION_SCORES.D},
-  {min: 8, max: 12.1, score: `E`, src: `img/raining.png`, desc: DESCRIPTION_SCORES.E},
+  {min: -1, max: 0, score: `素晴らしい、予報は快晴です`, src: `img/SUN.png`, desc: DESCRIPTION_SCORES.SUNNY},
+  {min: 0, max: 2.5, score: `ご安心下さい、予報は晴れ時々曇りです`, src: `img/SUN-WITH-CLOUD.png`, desc: DESCRIPTION_SCORES.FINE},
+  {min: 2.5, max: 6, score: `少し悩ましい、予報は曇りです`, src: `img/CLOUD.png`, desc: DESCRIPTION_SCORES.CLOUDY},
+  {min: 6, max: 8, score: `少し心配、予報は小雨です`, src: `img/before-rain.png`, desc: DESCRIPTION_SCORES.RAINY},
+  {min: 8, max: 12.1, score: `大変です、予報は大雨です`, src: `img/RAINING.png`, desc: DESCRIPTION_SCORES.STORM},
 ]; // указал max: 12.1 что бы не дописывать логику на 12 включительно.
 
 const getAverage = (arr) => (arr.reduce((accumulator, elem) => (accumulator + parseInt(elem.value, 10)), 0) / arr.length);
@@ -194,7 +195,8 @@ formElement.addEventListener(`submit`, (evt) => {
 
   finalScore.forEach((elem) => {
     if (elem.min <= totalScore && totalScore < elem.max) {
-      resultScoreElement.textContent = `${DEFAULT_TEXT_SCORE} ${elem.score}`
+      resultScoreDefault.textContent = `${DEFAULT_TEXT_SCORE}`;
+      resultScoreElement.textContent = `${elem.score}`;
       resultScoreDescriptionElement.textContent = elem.desc;
       resultScoreImgElement.src = elem.src;
     }
@@ -268,3 +270,6 @@ sleepBlockElement.addEventListener(`input`, () => {
 stepsBlockElement.addEventListener(`input`, () => {
   updateChart(stepsChart, stepsInputElements);
 });
+function showDiv() {
+  document.getElementById('adv').style.display = "block";
+}

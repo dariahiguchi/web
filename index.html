@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<title>W3.CSS Template</title>
+<title>Cogsmart</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -11,8 +11,8 @@ html,body,h1,h2,h3,h4,h5,p {font-family: "Raleway", sans-serif}
 </style>
 <head>
   <!-- Place your kit's code here -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://kit.fontawesome.com/81f1488bbc.js" crossorigin="anonymous"></script>
 </head>
 <body class="w3-light-grey">
@@ -30,7 +30,7 @@ html,body,h1,h2,h3,h4,h5,p {font-family: "Raleway", sans-serif}
       <img src="/w3images/avatar2.png" class="w3-circle w3-margin-right" style="width:46px">
     </div>
     <div class="w3-col s8 w3-bar">
-      <span>こんにちは, <strong>アキラさん</strong></span><br>
+      <span>こんにちは, <strong>xxxさん</strong></span><br>
       <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
       <a href="#" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
       <a href="#" class="w3-bar-item w3-button"><i class="fa fa-cog"></i></a>
@@ -42,10 +42,9 @@ html,body,h1,h2,h3,h4,h5,p {font-family: "Raleway", sans-serif}
   </div>
   <div class="w3-bar-block">
     <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fa fa-users fa-fw"></i>  Overview</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-eye fa-fw"></i>  Views</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  Traffic</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bullseye fa-fw"></i>  Geo</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fas fa-notes-medical"></i>　PHR</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fas fa-mobile-alt"></i>　携帯データ</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bullseye fa-fw"></i>結果</a>
   </div>
 </nav>
 
@@ -58,12 +57,12 @@ html,body,h1,h2,h3,h4,h5,p {font-family: "Raleway", sans-serif}
 
   <!-- Header -->
   <header class="w3-container" style="padding-top:22px">
-    <h5><b><i class="fa fa-dashboard"></i>Dashboard</b></h5>
+    <h5><b><i class="fa fa-dashboard"></i>　Dashboard</b></h5>
   </header>
   <div class="w3-bar w3-border w3-green">
     <div class="w3-bar-item"><h5>PHR</h5></div>
   </div>
-<form name="patientdata" id="score-form">
+<form name="patientdata" id="score-form" onsubmit="showDiv()">
   <!-- phr patients data--> 
   <div class="w3-row-padding" style="margin:0 -5px; padding: 20px;">
     <div class="w3-quarter">
@@ -241,17 +240,47 @@ html,body,h1,h2,h3,h4,h5,p {font-family: "Raleway", sans-serif}
   <button type="reset">Reset</button>
   <button type="submit">Submit</button>
 </form>
+<div class="w3-panel w3-padding-30 w3-white" style="margin:10%">
   <table>
     <tr>
       <td>
+        <h3 id="default-text"></h3><br>
+        <img id="score-result-img" src="img/default.png" style="margin-left: 25%; margin-right: 25%;">
+        <h3 style="color:red" id="score-result"></h3><br>
         <h3 id="score-result"></h3><br>
         <p id="score-result-description"></p>
       </td>
-      <div>
-        <img id="score-result-img" src="img/default.png">
-      </div>
     </tr>
   </table>
+  <table id="adv" style="display: none; padding-bottom: 5%;">
+  <tr>
+  <td>
+    認知症にならない生活習慣をするには
+  </td>
+  <td>
+    <i class="fas fa-angle-double-right"></i>
+  </td>
+  <td>
+    <button class="w3-btn w3-green">
+      Dr タキの「生涯健康脳」アドバイス
+    </button>
+  </td>
+  </tr>
+  <tr>
+  <td>
+    認知症危険度の簡易テストをするには    
+  </td>
+  <td>
+    <i class="fas fa-angle-double-right"></i>
+  </td>
+  <td>
+    <button class="w3-btn w3-blue">
+      認知機能テスト
+    </button>
+</td>
+  </tr>
+</table>
+</div>
   <br>
   <div class="w3-container w3-dark-grey w3-padding-32">
     <div class="w3-row">
